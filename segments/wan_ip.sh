@@ -26,7 +26,7 @@ run_segment() {
 	fi
 
 	if [ -z "$wan_ip" ]; then
-		wan_ip=$(curl --max-time 2 -s http://whatismyip.akamai.com/)
+		wan_ip=$(curl --max-time 2 --connect-timeout 1 -s http://whatismyip.akamai.com/)
 
 		if [ "$?" -eq "0" ]; then
 			echo "${wan_ip}" > $tmp_file
@@ -36,7 +36,7 @@ run_segment() {
 	fi
 
 	if [ -n "$wan_ip" ]; then
-		echo "ⓦ ${wan_ip}"
+		echo "🌏 ${wan_ip}"
 	fi
 
 	return 0

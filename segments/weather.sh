@@ -1,5 +1,7 @@
 # Prints the current weather in Celsius, Fahrenheits or lord Kelvins. The forecast is cached and updated with a period of $update_period.
 
+weather="$(curl --connect-timeout 1 'wttr.in?format=+%t+%c')"
+
 # The update period in seconds.
 update_period=600
 
@@ -40,17 +42,8 @@ EORC
 }
 
 run_segment() {
-	__process_settings
-	local tmp_file="${TMUX_POWERLINE_DIR_TEMPORARY}/weather_yahoo.txt"
-	local weather
-	case "$TMUX_POWERLINE_SEG_WEATHER_DATA_PROVIDER" in
-		"yahoo") weather=$(__yahoo_weather) ;;
-		*)
-			echo "Unknown weather provider [${$TMUX_POWERLINE_SEG_WEATHER_DATA_PROVIDER}]";
-			return 1
-	esac
 	if [ -n "$weather" ]; then
-		echo "$weather"
+		echo "$weather "
 	fi
 }
 
